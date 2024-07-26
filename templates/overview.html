@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis and Modeling Overview</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: white; /* Set white background */
+        }
+
+        header {
+            background-color: white; /* Set white background */
+            color: black; /* Set text color */
+            position: fixed; /* Make header fixed */
+            top: 0;
+            width: 100%;
+            z-index: 999; /* Ensure header is above other content */
+            padding: 1rem; /* Add padding */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Add box shadow */
+        }
+
+        header h1 {
+            font-size: 1.5rem; /* Adjust font size */
+            font-weight: bold; /* Set font weight */
+            margin: 0; /* Remove default margin */
+        }
+
+        main {
+            margin-top: 4rem; /* Ensure content below fixed header */
+            padding: 1rem; /* Add padding */
+        }
+
+        /* Style images */
+        img {
+            max-width: 100%; /* Ensure images don't exceed container width */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Remove default inline display */
+            margin: 0 auto; /* Center align images */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow */
+            border-radius: 8px; /* Add border radius for rounded corners */
+            margin-bottom: 1.5rem; /* Add margin between images */
+        }
+        
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-container > div {
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 2rem; /* Add margin between image containers */
+        }
+        
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <header>
+        <h1>Data Analysis and Modeling Overview</h1>
+    </header>
+    <main class="container mx-auto py-8 px-4">
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Data Cleaning and Preparation</h2>
+            <ul class="list-disc ml-8">
+                <li class="mb-2">Handled missing values in the dataset.</li>
+                <li class="mb-2">Converted data types for appropriate analysis.</li>
+                <li class="mb-2">Extracted meaningful features such as CPU brand, GPU brand, and categorized operating systems.</li>
+                <li class="mb-2">Processed the 'Memory' column to separate HDD and SSD storage.</li>
+            </ul>
+            <div class="image-container">
+                <div>
+                    <h3 class="text-xl font-bold mb-2 text-center">Before Preprocessing</h3>
+                    <img src='/images/before_preprocessing.png' alt="Before Preprocessing">
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2 text-center">After Preprocessing</h3>
+                    <img src="/images/after_preprocessing.png" alt="After Preprocessing">
+                </div>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Visualization</h2>
+            <div class="image-container">
+                <div>
+                    <h3 class="text-xl font-bold mb-2 text-center">Bar Plot - Company vs Price</h3>
+                    <img src="/images/company_vs_price.png" alt="Company vs Price Bar Plot">
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2 text-center">Bar Plot - Type Name vs Price</h3>
+                    <img src="/images/typename_vs_price.png" alt="Type Name vs Price Bar Plot">
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2 text-center">Bar Plot - CPU Brand vs Price</h3>
+                    <img src="/images/cpu_vs_price.png" alt="CPU Brand vs Price Bar Plot">
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2 text-center">Bar Plot - GPU Brand vs Price</h3>
+                    <img src="/images/gpu_vs_price.png" alt="GPU Brand vs Price Bar Plot">
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2 text-center">Bar Plot - RAM vs Price</h3>
+                    <img src="/images/ram_vs_price.png" alt="RAM vs Price Bar Plot">
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2 text-center">Bar Plot - Operating System vs Price</h3>
+                    <img src="/images/opsys_vs_price.png" alt="Operating System vs Price Bar Plot">
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2 text-center">Correlation Heatmap</h3>
+                    <img src="/images/correlation_heatmap.png" alt="Correlation Heatmap">
+                </div>
+            </div>
+            <p class="mt-4">The visualization section includes bar plots depicting relationships between various features and the target variable.</p>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Modeling</h2>
+            <p class="mb-2">A wide range of regression models were experimented with, including linear regression, decision trees, and ensemble methods like Random Forest and Gradient Boosting.</p>
+            <p class="mb-2">Pipelines and transformers were utilized for consistent preprocessing across different models.</p>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Evaluation</h2>
+            <p class="mb-2">Model performance was evaluated using metrics like R-squared and Mean Absolute Error.</p>
+            <p class="mb-2">The performance of different models was compared to inform decision-making.</p>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Exporting the Model</h2>
+            <p class="mb-2">The trained model and dataset were exported for easy deployment and reuse.</p>
+        </section>
+    </main>
+</body>
+</html>

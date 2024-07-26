@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+        }
+        .table-container {
+            margin-top: 6rem; /* Adjust according to the height of the fixed header */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="fixed-header text-center">
+        <h1 class="text-3xl font-bold">{{ brand }} Laptops</h1>
+    </div>
+    <div class="container mx-auto px-4 table-container">
+        <div id="results">
+            <table class="table-auto max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="border px-4 py-2">Image</th>
+                        <th class="border px-4 py-2">Title</th>
+                        <th class="border px-4 py-2">URL</th>
+                        <th class="border px-4 py-2">Best Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set count = 0 %}
+                    {% for index, row in laptops.iterrows() if row['Company'] == brand %}
+                        {% if count < 10 %}
+                            {% set count = count + 1 %}
+                            <tr class="{% if count % 2 == 0 %}bg-gray-100{% else %}bg-white{% endif %}">
+                                <td class="border px-4 py-2"><img src="{{ row['img'] }}" alt="Image" class="w-24"></td>
+                                <td class="border px-4 py-2">{{ row['title'] }}</td>
+                                <td class="border px-4 py-2"><a href="{{ row['url'] }}" class="text-blue-500 hover:underline">Check</a></td>
+                                <td class="border px-4 py-2">{{ row['best_price'] }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

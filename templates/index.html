@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Laptop Price Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-container {
+            margin-top: 6rem; /* To ensure the form is not hidden behind the fixed header */
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-content h1 {
+            margin-left: 20px; /* Adjust margin space as needed */
+        }
+        .header-content .links {
+            display: flex;
+            align-items: center;
+        }
+        .header-content .links a,
+        .header-content .links form button {
+            margin-right: 20px; /* Adjust margin space as needed */
+            transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transition for color and background change */
+        }
+        .header-content .links a:hover,
+        .header-content .links form button:hover {
+            color: blue; /* Change color on hover */
+            background-color: #f0f0f0; /* Change background on hover */
+        }
+        .header-content .links form {
+            display: inline; /* Ensure the form is inline with the link */
+        }
+        .header-content .links form button {
+            background-color: white;
+            color: #007bff;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            font-size: 1rem;
+            text-decoration: underline;
+        }
+        .logout-button {
+            background-color: white;
+            color: #007bff;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+        }
+        .logout-button img {
+            width: 20px;
+            height: 20px;
+        }
+        .logout-button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="fixed-header p-4 text-center">
+        <div class="container mx-auto header-content">
+            <h1 class="text-2xl font-bold text-gray-800">Laptop Price Predictor</h1>
+            <div class="links">
+                <a href="http://127.0.0.1:5000/overview" class="text-blue-500 hover:text-blue-700">Overview</a>
+                <form action="/logout" method="post">
+                    <button type="submit" class="logout-button">
+                        <img src="/images/image.png" alt="Logout">
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="form-container bg-white p-8 rounded shadow-md max-w-md w-full">
+        <form action="/predict" method="post" class="space-y-4">
+            <div>
+                <label for="brand" class="block text-gray-700">Brand:</label>
+                <select name="brand" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    {% for brand in dataset['Company'].unique() %}
+                        <option value="{{ brand }}">{{ brand }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="type" class="block text-gray-700">Type:</label>
+                <select name="type" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    {% for type in dataset['TypeName'].unique() %}
+                        <option value="{{ type }}">{{ type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="ram" class="block text-gray-700">RAM (in GB):</label>
+                <select name="ram" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    {% for ram in ramList %}
+                        <option value="{{ ram }}">{{ ram }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="weight" class="block text-gray-700">Weight of the Laptop:</label>
+                <input type="number" name="weight" step="0.01" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div>
+                <label for="touchScreen" class="block text-gray-700">Touchscreen:</label>
+                <select name="touchScreen" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    {% for option in flag %}
+                        <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="ips" class="block text-gray-700">IPS:</label>
+                <select name="ips" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    {% for option in flag %}
+                        <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="screenSize" class="block text-gray-700">Screen Size of Laptop:</label>
+                <input type="number" name="screenSize" step="0.1" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div>
+                <label for="resolution" class="block text-gray-700">Screen Resolution:</label>
+                <select name="resolution" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    {% for res in resolution_options %}
+                        <option value="{{ res }}">{{ res }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="cpu" class="block text-gray-700">CPU:</label>
+                <select name="cpu" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    {% for cpu in dataset['Cpu brand'].unique() %}
+                        <option value="{{ cpu }}">{{ cpu }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="hdd" class="block text-gray-700">HDD (in GB):</label>
+                <select name="hdd" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    {% for size in memorySizeList %}
+                        <option value="{{ size }}">{{ size }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="ssd" class="block text-gray-700">SSD (in GB):</label>
+                <select name="ssd" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    {% for size in memorySizeList %}
+                        <option value="{{ size }}">{{ size }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="gpu" class="block text-gray-700">GPU:</label>
+                <select name="gpu" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    {% for gpu in dataset['Gpu brand'].unique() %}
+                        <option value="{{ gpu }}">{{ gpu }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="os" class="block text-gray-700">Operating System:</label>
+                <select name="os" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    {% for os in dataset['os'].unique() %}
+                        <option value="{{ os }}">{{ os }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Predict Price</button>
+        </form>
+    </div>
+</body>
+</html>
