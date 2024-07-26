@@ -16,14 +16,6 @@ dataset = pickle.load(open('./dataset.pkl', 'rb'))
 laptops = pickle.load(open('./laptopList.pkl', 'rb'))
 
 config = {
-        'apiKey': "AIzaSyDZ0N1wGROYdG9TBTt4rXN-15qmwl-JFa8",
-        'authDomain': "laptoppricepredictor-90c04.firebaseapp.com",
-        'projectId': "laptoppricepredictor-90c04",
-        'storageBucket': "laptoppricepredictor-90c04.appspot.com",
-        'messagingSenderId': "112154199704",
-        'appId': "1:112154199704:web:85d4a498617309376af2ed",
-        'measurementId': "G-WBFC7MEPKL",
-        'databaseURL': 'https://laptoppricepredictor-90c04-default-rtdb.firebaseio.com/'
 }
 
 firebase = pyrebase.initialize_app(config)
