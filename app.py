@@ -15,6 +15,7 @@ pipe = pickle.load(open('./pipe.pkl', 'rb'))
 dataset = pickle.load(open('./dataset.pkl', 'rb'))
 laptops = pickle.load(open('./laptopList.pkl', 'rb'))
 
+//assign firebase configuration
 config = {
 }
 
